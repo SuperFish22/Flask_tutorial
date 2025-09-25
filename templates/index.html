@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Наши товары</h2>
+<div class="products">
+    {% for product in products %}
+    <div class="product">
+        <h3>{{ product.name }}</h3>
+        <p class="price">{{ "%.2f"|format(product.price) }} руб.</p>
+        <p>{{ product.description }}</p>
+        <form action="{{ url_for('add_to_cart') }}" method="POST">
+            <input type="hidden" name="product_id" value="{{ product.id }}">
+            <label>Количество: <input type="number" name="quantity" value="1" min="1" style="width: 60px;"></label>
+            <button type="submit">Добавить к заказу</button>
+        </form>
+    </div>
+    {% endfor %}
+</div>
+<div style="margin-top: 20px; text-align: center;">
+    <a href="{{ url_for('order') }}"><button>Перейти к оформлению заказа</button></a>
+    </div>
+{% endblock %}
+
+
